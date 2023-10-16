@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Simple example using SeleniumLibrary.
 Library           SeleniumLibrary
+Resource          login_keywords.robot
 
 Suite Teardown      Close All Browsers
 
@@ -13,17 +14,6 @@ ${PASSWORD}    %{PASSWORD}
 *** Test Cases ***
 Valid Login
     Given Login page is open
-    When Valid username and password are filled in
+    When Invalid username and password are filled in
     And Credentials are submitted
-    Then Welcome page should be open
-
-*** Keywords ***
-Login page is open
-    Open Browser    ${LOGINPAGE URL}    ${BROWSER}
-Valid Valid username and password are filled in
-    Input Text    username    ${USERNAME}
-    Input Password    password    ${PASSWORD}
-Credentials are submitted
-    Submit Form    #t3-content > div.login-wrap > div.login > form
-Welcome page should be open
-    Page Should Contain    "Welcome"
+    Then Warning message is shown
